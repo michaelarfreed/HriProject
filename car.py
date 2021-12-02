@@ -16,7 +16,7 @@ class Car(Robot):
 
     def step_0_node_0_action(self):
         if self.behavior_matches:
-            self.drive_forwad()
+            self.drive_forward()
             pass
         else:
             pass
