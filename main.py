@@ -7,14 +7,88 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
+from car import Car
+from gyroboy import GyroBoy
+from puppy import Puppy
+from script import Story 
 
-# This program requires LEGO EV3 MicroPython v2.0 or higher.
-# Click "Open user guide" on the EV3 extension tab for more information.
+import time
+
+class Experiment:
+    def __init__(self, form=0, behavior=True):
+        self.form_factor = form  # 0 = puppy, 1 = gyroboy, 2 = car
+        self.behavior_matches = behavior # boolean, i.e. True = puppy form + puppy behaviors, False = puppy form + boy/car behaviors
+        self.story = Story()
+        
+        self.robot = self.get_robot()
+        self.prev_touched = 0
 
 
-# Create your objects here.
-ev3 = EV3Brick()
+    def get_robot(self):
+        if self.form_factor == 0:
+            return Puppy()
+        if self.form_factor == 1:
+            return GyroBoy()
+        if self.form_factor == 2:
+            return Car()
 
+    def get_robot_string(self):
+        if self.form_factor == 0:
+            return "puppy"
+        if self.form_factor == 1:
+            return "gyroboy"
+        if self.form_factor == 2:
+            return "car"
 
-# Write your program here.
-ev3.speaker.beep()
+    def run(self):
+
+        while not self.story.is_current_step_end():
+            # get the text for current step
+            text = self.story.get_current_node_text()
+            self.robot.ev3.speaker.say(text)
+            # print(text)
+
+            # get the input from the user
+            sensor_input = self.wait_for_sensor_input()
+
+            # do the action            
+            function_name = self.story.get_current_node_action_function_name()
+            print(function_name)
+            method = getattr(self.robot, function_name)
+            method()
+
+            # move to the next step
+            self.story.set_next_node(sensor_input)
+
+        return True
+
+    def wait_for_sensor_input(self, max_time=5):
+        """
+        wait max_time seconds for button to be pressed
+        once the button is pressed, continue waiting 
+
+        Args:
+            max_time (int, optional): maximum amount of time (in seconds) to wait for button press. Defaults to None. 
+                                      If None, robot will wait forever for button press
+
+        Returns:
+            boolean: if button was pressed, returns True. else, returns False
+        """
+        # wait the maximum amount of time for button press
+        tic = time.perf_counter()
+        toc = time.perf_counter()
+        while toc-tic < max_time:
+            toc = time.perf_counter()
+            # if self.robot.touch_sensor.pressed():
+            #     return 1
+            
+            if Button.LEFT in self.robot.ev3.buttons.pressed():
+                return 0
+            if Button.RIGHT in self.robot.ev3.buttons.pressed():
+                return 1
+        # return 0
+        return -1
+
+if __name__ == '__main__':
+    experiment = Experiment()
+    finished = experiment.run()
