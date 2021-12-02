@@ -9,9 +9,10 @@ from pybricks.tools import wait, StopWatch
 
 class Robot:
 
-    def __init__(self):
+    def __init__(self, behavior_matches):
         # Initialize the EV3 brick.
         self.ev3 = EV3Brick()
+        self.behavior_matches = behavior_matches
 
 
     def step_0_node_0_action(self):

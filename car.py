@@ -1,8 +1,8 @@
 from robot import Robot
 
 class Car(Robot):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, behavior_matches):
+        super().__init__(behavior_matches)
         # Initialize the motors connected to the back wheels.
         self.left_wheel_motor = Motor(Port.D, Direction.COUNTERCLOCKWISE)
         self.right_wheel_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
@@ -14,3 +14,17 @@ class Car(Robot):
         # self.front_motor = Motor(Port.C, Direction.COUNTERCLOCKWISE,
         #                         gears=[[1, 24], [12, 36]])
 
+    def step_0_node_0_action(self):
+        if self.behavior_matches:
+            self.drive_forwad()
+            pass
+        else:
+            pass
+
+    def drive_forward(self, distance):
+        pass 
+
+
+if __name__ == "__main__":
+    c = Car()
+    c.drive_forward(40)

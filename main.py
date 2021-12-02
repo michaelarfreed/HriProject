@@ -26,11 +26,11 @@ class Experiment:
 
     def get_robot(self):
         if self.form_factor == 0:
-            return Puppy()
+            return Puppy(self.behavior_matches)
         if self.form_factor == 1:
-            return GyroBoy()
+            return GyroBoy(self.behavior_matches)
         if self.form_factor == 2:
-            return Car()
+            return Car(self.behavior_matches)
 
     def get_robot_string(self):
         if self.form_factor == 0:
@@ -46,19 +46,19 @@ class Experiment:
             # get the text for current step
             text = self.story.get_current_node_text()
             self.robot.ev3.speaker.say(text)
-            # print(text)
 
             # get the input from the user
             sensor_input = self.wait_for_sensor_input()
 
-            # do the action            
-            function_name = self.story.get_current_node_action_function_name()
-            print(function_name)
-            method = getattr(self.robot, function_name)
-            method()
-
-            # move to the next step
-            self.story.set_next_node(sensor_input)
+            if sensor_input != -1:
+                # do the action            
+                function_name = self.story.get_current_node_action_function_name()
+                # print(function_name)
+                method = getattr(self.robot, function_name)
+                method()
+                
+                # move to the next step
+                self.story.set_next_node(sensor_input)
 
         return True
 
@@ -79,16 +79,17 @@ class Experiment:
         toc = time.perf_counter()
         while toc-tic < max_time:
             toc = time.perf_counter()
-            # if self.robot.touch_sensor.pressed():
-            #     return 1
-            
-            if Button.LEFT in self.robot.ev3.buttons.pressed():
+            if self.robot.touch_sensor.pressed():
                 return 0
-            if Button.RIGHT in self.robot.ev3.buttons.pressed():
+            if Button.CENTER in self.robot.ev3.buttons.pressed():
                 return 1
+            # if Button.LEFT in self.robot.ev3.buttons.pressed():
+            #     return 0
+            # if Button.RIGHT in self.robot.ev3.buttons.pressed():
+            #     return 1
         # return 0
         return -1
 
 if __name__ == '__main__':
-    experiment = Experiment()
+    experiment = Experiment(form=0, behavior=True)
     finished = experiment.run()

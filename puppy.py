@@ -10,8 +10,8 @@ class Puppy(Robot):
     HEAD_UP_ANGLE = 0
     HEAD_DOWN_ANGLE = -40
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, behavior_matches):
+        super().__init__(behavior_matches)
 
         # Initialize the motors connected to the back legs.
         self.left_leg_motor = Motor(Port.D, Direction.COUNTERCLOCKWISE)
