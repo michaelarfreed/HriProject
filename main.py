@@ -90,10 +90,39 @@ class Experiment:
         # return 0
         return -1
 
-#if __name__ == '__main__':
- #   experiment = Experiment(form=0, behavior=True)
- #   finished = experiment.run()
+if __name__ == '__main__':
+   experiment = Experiment(form=0, behavior=True)
+   finished = experiment.run()
 
+
+# test code to run through all the actions
 if __name__ == '__main__':
     gyroboy = GyroBoy(True)
-    gyroboy.step_0_node_0_action()
+    # gyroboy.step_0_node_0_action()
+    # gyroboy.step_0_node_1_action()
+    # gyroboy.step_1_node_0_action()
+    # gyroboy.step_2_node_0_action()
+    # gyroboy.step_2_node_1_action()
+    # gyroboy.step_3_node_0_action()
+    # gyroboy.step_3_node_1_action()
+    # gyroboy.step_3_node_2_action()
+    # gyroboy.step_4_node_0_action()
+    # gyroboy.step_4_node_1_action()
+    # gyroboy.step_4_node_2_action()
+    # gyroboy.step_4_node_3_action()
+    # gyroboy.step_5_node_0_action()
+    # gyroboy.step_5_node_1_action()
+    # gyroboy.step_5_node_2_action()
+    # gyroboy.step_5_node_3_action()
+    # gyroboy.step_6_node_0_action()
+    # gyroboy.step_6_node_1_action()
+    # gyroboy.step_6_node_2_action()
+    # gyroboy.step_6_node_3_action()
+    # gyroboy.step_7_node_0_action()
+    # gyroboy.step_7_node_1_action()
+    # gyroboy.step_7_node_2_action()
+
+
+
+
+

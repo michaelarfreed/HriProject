@@ -36,11 +36,11 @@ class GyroBoy(Robot):
         print("Step 0 Node 0 complete")
 
     def step_0_node_1_action(self):
-        self.screen.load_image(ImageFile.LOVE)
+        self.ev3.screen.load_image(ImageFile.LOVE)
         if self.behavior_matches:
             self.arm_motor.run_angle(200, -self.rightup)
             self.ev3.speaker.say("Thank you!")
-            self.load_image(ImageFile.NEUTRAL)
+            self.ev3.screen.load_image(ImageFile.NEUTRAL)
         else:
             pass
         print("Step 0 Node 1 complete")
@@ -50,7 +50,8 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(200,-self.wiggle)
         else:
             pass
-    def step_2_node_1_action(self): #vents
+        print("Step 1 Node 0 complete")
+    def step_2_node_0_action(self): #vents
         if self.behavior_matches:
             self.bothwheels.turn(-45)
             self.ev3.speaker.say("This way?")
@@ -59,7 +60,8 @@ class GyroBoy(Robot):
             self.bothwheels.turn(-45)
         else: 
             pass
-    def step_2_node_2_action(self): #helecopter
+        print("Step 2 Node 0 complete")
+    def step_2_node_1_action(self): #helecopter
         if self.behavior_matches:
             self.ev3.screen.load_image(ImageFile.LEFT)
             self.bothwheels.turn(60)
@@ -67,34 +69,37 @@ class GyroBoy(Robot):
             self.bothwheels.turn(-60)
         else:
             pass
-            
-    def step_3_node_1_action(self):
+        print("Step 2 Node 1 complete")
+    def step_3_node_0_action(self):
         if self.behavior_matches:
             self.ev3.screen.load_image(ImageFile.DOWN)
-            self.slowturn(self, .5, 360)  ##FLAG
+            self.slowturn(.5, 360) 
 
         else:
             pass        
-    def step_3_node_2_action(self):
+        print("Step 3 Node 0 complete")
+    def step_3_node_1_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200, -self.rightup)
             self.arm_motor.run_angle(100, self.rightup)
         else:
             pass    
-    def step_3_node_3_action(self):
+        print("Step 3 Node 1 complete")
+    def step_3_node_2_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200, self.rightup)
             self.arm_motor.run_angle(100, -self.rightup)           
         else:
             pass    
-
-    def step_4_node_1_action(self):
+        print("Step 3 Node 2 complete")
+    def step_4_node_0_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200, -2*self.wiggle)
             self.arm_motor.run_angle(200, 2*self.wiggle)
         else:
             pass    
-    def step_4_node_2_action(self):
+        print("Step 4 Node 0 complete")
+    def step_4_node_1_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200, -self.wiggle)
             self.arm_motor.run_angle(200, self.wiggle)
@@ -106,25 +111,28 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(200, self.wiggle) 
     
         else:
+            pass  
+        print("Step 4 Node 1 complete")  
+    def step_4_node_2_action(self):
+        if self.behavior_matches:
+            self.bothwheels.turn(90)
+            self.arm_motor.run_angle(200,self.wiggle)
+            self.arm_motor.run_angle(200,-2*self.wiggle)
+            self.arm_motor.run_angle(200,self.wiggle)
+            self.bothwheels.turn(-90)
+        else:
             pass    
+        print("Step 4 Node 2 complete")
     def step_4_node_3_action(self):
         if self.behavior_matches:
-            self.bothwheels(90)
+            self.bothwheels.turn(90)
             self.arm_motor.run_angle(200,self.wiggle)
             self.arm_motor.run_angle(200,-2*self.wiggle)
             self.arm_motor.run_angle(200,self.wiggle)
             self.bothwheels.turn(-90)
         else:
-            pass    
-    def step_4_node_4_action(self):
-        if self.behavior_matches:
-            self.bothwheels(90)
-            self.arm_motor.run_angle(200,self.wiggle)
-            self.arm_motor.run_angle(200,-2*self.wiggle)
-            self.arm_motor.run_angle(200,self.wiggle)
-            self.bothwheels.turn(-90)
-        else:
-            pass   
+            pass 
+        print("Step 4 Node 3 complete")  
     def step_5_node_0_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(100,self.rightup)
@@ -132,7 +140,8 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(250, -self.rightup)
 
         else:
-            pass    
+            pass   
+        print("Step 5 Node 0 complete") 
     def step_5_node_1_action(self):
         if self.behavior_matches:
             self.bothwheels.turn(-90)
@@ -140,6 +149,7 @@ class GyroBoy(Robot):
             self.bothwheels.turn(-90)
         else:
             pass   
+        print("Step 5 Node 1 complete")
     def step_5_node_2_action(self):
         if self.behavior_matches:
             self.bothwheels.turn(-90)
@@ -147,26 +157,30 @@ class GyroBoy(Robot):
             self.bothwheels.turn(-90) 
         else:
             pass    
+        print("Step 5 Node 2 complete")
     def step_5_node_3_action(self):
         if self.behavior_matches:
-            self.bothwheels.drive(100)
+            self.bothwheels.straight(10)
             self.arm_motor.run_angle(100, self.leftup) 
             self.arm_motor.run_angle(200,-self.leftup)
         else:
-            pass    
+            pass 
+        print("Step 5 Node 3 complete")   
     def step_6_node_0_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(50,self.rightup)
             self.arm_motor.run_angle(50,-self.rightup)
         else:
-            pass    
+            pass 
+        print("Step 6 Node 0 complete")   
     def step_6_node_1_action(self):
         if self.behavior_matches:
-            self.bothwheels.drive(-10)
+            self.bothwheels.straight(-10)
             self.arm_motor.run_angle(100,-self.wiggle)
             self.arm_motor.run_angle(100, self.wiggle)
         else:
             pass    
+        print("Step 6 Node 1 complete")
     def step_6_node_2_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(50,self.rightup)
@@ -175,7 +189,8 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(50,-2*self.rightup)
             self.arm_motor.run_angle(50,self.rightup)
         else:
-            pass    
+            pass
+        print("Step 6 Node 2 complete")    
     def step_6_node_3_action(self):
         if self.behavior_matches: #eating
             self.arm_motor.run_angle(250,self.rightup)
@@ -184,34 +199,38 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(250,-2*self.rightup)
             self.arm_motor.run_angle(250,self.rightup)  
         else:
-            pass    
+            pass   
+        print("Step 6 Node 3 complete") 
     def step_7_node_0_action(self):
         if self.behavior_matches: #tantrum
-            self.bothwheels.drive(-10)
+            self.bothwheels.straight(-10)
             self.arm_motor.run_angle(200,self.wiggle)
             self.arm_motor.run_angle(200,-2*self.wiggle)
             self.arm_motor.run_angle(200,2*self.wiggle)
             self.arm_motor.run_angle(200,-2*self.wiggle)
             self.arm_motor.run_angle(200,self.wiggle)
-            self.ev3.speaker.play_file(SORRY.wav)
+            self.ev3.speaker.say("Sorry")
         else:
-            pass    
+            pass  
+        print("Step 7 Node 0 complete")  
     def step_7_node_1_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200,self.rightup)
-            self.ev3.speaker.play_file(FANTASTIC.wav)    
+            self.ev3.speaker.say("Fantastic!")
         else:
-            pass    
+            pass  
+        print("Step 7 Node 1 complete")  
     def step_7_node_2_action(self):
         if self.behavior_matches:
             self.arm_motor.run_angle(200,self.rightup)
-            self.ev3.speaker.play_file(FANTASTIC.wav)
+            self.ev3.speaker.say("Fantastic!")
             
         else:
             pass    
+        print("Step 7 Node 2 complete")
     def step_7_node_3_action(self):
         if self.behavior_matches:
-            self.bothwheels.drive(-10)
+            self.bothwheels.straight(-10)
             self.arm_motor.run_angle(200,self.wiggle)
             self.arm_motor.run_angle(200,-2*self.wiggle)
             self.arm_motor.run_angle(200,2*self.wiggle)
@@ -219,5 +238,6 @@ class GyroBoy(Robot):
             self.arm_motor.run_angle(200,self.wiggle)
             self.ev3.speaker.play_file(SORRY.wav)
         else:
-            pass    
+            pass  
+        print("Step 7 Node 3 complete")  
    
