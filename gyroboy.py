@@ -17,12 +17,45 @@ class GyroBoy(Robot):
         obstacle_sensor = UltrasonicSensor(Port.S4)
         GoButton = TouchSensor(Port.S3)
 
-    def step_0_node_0_action(self):
+    def step_0_node_0_action(self): #start
         self.ev3.screen.load_image(ImageFile.AWAKE)
+        self.ev3.arm_motor.run_angle(200, 50,then=Stop.HOLD, wait=False)
         print("Step 0 Node 0 complete")
 
-    def step_1_node_0_action(self):
+    def step_0_node_1_action(self):
         self.ev3.screen.load_image(ImageFile.LOVE)
-        print("Step 1 Node 0 complete")
+        if self.behavior_matches:
+            self.ev3.arm_motor.run_angle(200, -50,then=Stop.HOLD, wait=False)
+            self.ev3.speaker.say("Thank you!")
+            self.load_image(ImageFile.Neutral)
+        else:
+            pass
+        print("Step 0 Node 1 complete")
     def step_1_node_0_action(self):
-        
+        if self.behavior_matches:
+            self.ev3.arm_motor.run_angle(200,100)
+            self.ev3.arm_motor.run_angle(200,-100)
+        else:
+            pass
+    def step_2_node_1_action(self): #vents
+        if self.behavior_matches:
+            self.ev3.bothwheels.turn(-45)
+            self.ev3.speaker.say("This way?")
+            self.ev3.bothwheels.turn(90)
+            self.ev3.speaker.say("Or this way?")
+            self.ev3.bothwheels.turn(-45)
+        else: 
+    def step_2_node_2_action(self): #helecopter
+        if self.behavior_matches:
+            self.ev3.screen.load_image(ImageFile.LEFT)
+            self.ev3.bothwheels.turn(60)
+            self.ev3.speaker.say("Uh oh")
+            self.ev3.bothwheels.turn(-60)
+        else:
+            pass
+            
+     def step_3_node_1_action(self):
+        if self.behavior_matches:
+            
+        else:
+            pass        
