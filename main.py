@@ -90,6 +90,10 @@ class Experiment:
         # return 0
         return -1
 
+#if __name__ == '__main__':
+ #   experiment = Experiment(form=0, behavior=True)
+ #   finished = experiment.run()
+
 if __name__ == '__main__':
-    experiment = Experiment(form=0, behavior=True)
-    finished = experiment.run()
+    gyroboy = GyroBoy(True)
+    gyroboy.step_0_node_0_action()
