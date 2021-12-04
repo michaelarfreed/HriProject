@@ -44,7 +44,7 @@ class Experiment:
 
         while not self.story.is_current_step_end():
             # get the text for current step
-            text = self.story.get_current_node_text()
+            text = self.story.get_current_node_text(self.form_factor)
             self.robot.ev3.speaker.say(text)
 
             # get the input from the user
