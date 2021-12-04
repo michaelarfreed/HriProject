@@ -1,61 +1,216 @@
 from robot import *
 
 class GyroBoy(Robot):
+    rightup = 90
+    leftup = -120
+    wiggle = 30
     def __init__(self, behavior_matches):
         super().__init__(behavior_matches)
 
         ##MOTORS
         # Initialize a motor at port C, for both arms
-        arm_motor = Motor(Port.C)
+        self.arm_motor = Motor(Port.C)
         # Initialize right wheel motor
-        rightwheel_motor = Motor(Port.A)
+        self.rightwheel_motor = Motor(Port.A)
         # Initialize left wheel motor 
-        leftwheel_motor = Motor(Port.D)
-        bothwheels = DriveBase(leftwheel_motor, rightwheel_motor, 5.5,10.25) # left motor right motor, wheel diameter, distance between wheels
+        self.leftwheel_motor = Motor(Port.D)
+        self.bothwheels = DriveBase(leftwheel_motor, rightwheel_motor, 5.5,10.25) # left motor right motor, wheel diameter, distance between wheels
         
         #SENSORS
         obstacle_sensor = UltrasonicSensor(Port.S4)
         GoButton = TouchSensor(Port.S3)
 
+    def slowturn(self, percentage, angle):
+        # get current turn and move settings
+        (straight_speed, straight_acceleration, turn_rate, turn_acceleration) = self.bothwheels.settings()
+        # set turn rates to the slow percentage
+        self.bothwheels.settings = (straight_speed, straight_acceleration, percentage*turn_rate, percentage*turn_acceleration)
+        # make the slow turn
+        self.bothwheels.turn(angle)
+        # restore the standard settings
+        self.bothwheels.settings = (straight_speed, straight_acceleration, turn_rate, turn_acceleration)
+
     def step_0_node_0_action(self): #start
-        self.ev3.screen.load_image(ImageFile.AWAKE)
-        self.ev3.arm_motor.run_angle(200, 50,then=Stop.HOLD, wait=False)
+        self.ev3.screen.load_image(ImageFile.NEUTRAL)
+        self.arm_motor.run_angle(200, rightup)
         print("Step 0 Node 0 complete")
 
     def step_0_node_1_action(self):
-        self.ev3.screen.load_image(ImageFile.LOVE)
+        self.screen.load_image(ImageFile.LOVE)
         if self.behavior_matches:
-            self.ev3.arm_motor.run_angle(200, -50,then=Stop.HOLD, wait=False)
+            self.arm_motor.run_angle(200, -rightup)
             self.ev3.speaker.say("Thank you!")
-            self.load_image(ImageFile.Neutral)
+            self.load_image(ImageFile.NEUTRAL)
         else:
             pass
         print("Step 0 Node 1 complete")
     def step_1_node_0_action(self):
         if self.behavior_matches:
-            self.ev3.arm_motor.run_angle(200,100)
-            self.ev3.arm_motor.run_angle(200,-100)
+            self.arm_motor.run_angle(200,wiggle)
+            self.arm_motor.run_angle(200,-wiggle)
         else:
             pass
     def step_2_node_1_action(self): #vents
         if self.behavior_matches:
-            self.ev3.bothwheels.turn(-45)
+            self.bothwheels.turn(-45)
             self.ev3.speaker.say("This way?")
-            self.ev3.bothwheels.turn(90)
+            self.bothwheels.turn(90)
             self.ev3.speaker.say("Or this way?")
-            self.ev3.bothwheels.turn(-45)
+            self.bothwheels.turn(-45)
         else: 
     def step_2_node_2_action(self): #helecopter
         if self.behavior_matches:
             self.ev3.screen.load_image(ImageFile.LEFT)
-            self.ev3.bothwheels.turn(60)
+            self.bothwheels.turn(60)
             self.ev3.speaker.say("Uh oh")
-            self.ev3.bothwheels.turn(-60)
+            self.bothwheels.turn(-60)
         else:
             pass
             
      def step_3_node_1_action(self):
         if self.behavior_matches:
-            
+            self.ev3.screen.load_image(ImageFile.DOWN)
+            self.slowturn(self, .5, 360)  ##FLAG
+
         else:
             pass        
+    def step_3_node_2_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200, -rightup)
+            self.arm_motor.run_angle(100, rightup)
+        else:
+            pass    
+    def step_3_node_3_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200, rightup)
+            self.arm_motor.run_angle(100, -rightup)           
+        else:
+            pass    
+
+    def step_4_node_1_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200, -2*wiggle)
+            self.arm_motor.run_angle(200, 2*wiggle)
+        else:
+            pass    
+    def step_4_node_2_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200, -wiggle)
+            self.arm_motor.run_angle(200, wiggle)
+            self.arm_motor.run_angle(200, -wiggle)
+            self.arm_motor.run_angle(200, wiggle)
+            self.arm_motor.run_angle(200, -wiggle)
+            self.arm_motor.run_angle(200, wiggle)
+            self.arm_motor.run_angle(200, -wiggle)
+            self.arm_motor.run_angle(200, wiggle) 
+    
+        else:
+            pass    
+    def step_4_node_3_action(self):
+        if self.behavior_matches:
+            self.bothwheels(90)
+            self.arm_motor.run_angle(200,wiggle)
+            self.arm_motor.run_angle(200,-2*wiggle)
+            self.arm_motor.run_angle(200,wiggle)
+            self.bothwheels.turn(-90)
+        else:
+            pass    
+    def step_4_node_4_action(self):
+        if self.behavior_matches:
+            self.bothwheels(90)
+            self.arm_motor.run_angle(200,wiggle)
+            self.arm_motor.run_angle(200,-2*wiggle)
+            self.arm_motor.run_angle(200,wiggle)
+            self.bothwheels.turn(-90)
+        else:
+            pass   
+    def step_5_node_0_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(100,rightup)
+            self.ev3.speaker.say("I love to arm wrestle!")
+            self.arm_motor.run_angle(250, -rightup)
+
+        else:
+            pass    
+    def step_5_node_1_action(self):
+        if self.behavior_matches:
+            self.bothwheels.turn(-90)
+            self.bothwheels.turn(180)
+            self.bothwheels.turn(-90)
+        else:
+            pass   
+    def step_5_node_2_action(self):
+        if self.behavior_matches:
+            self.bothwheels.turn(-90)
+            self.bothwheels.turn(180)
+            self.bothwheels.turn(-90) 
+        else:
+            pass    
+    def step_5_node_3_action(self):
+        if self.behavior_matches:
+            self.bothwheels.drive(100)
+            self.arm_motor.run_angle(100, leftup) 
+            self.arm_motor.run_angle(200,-leftup)
+        else:
+            pass    
+    def step_6_node_0_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(50,rightup)
+            self.arm_motor.run_angle(50,-rightup)
+        else:
+            pass    
+    def step_6_node_1_action(self):
+        if self.behavior_matches:
+            self.bothwheels.drive(-10)
+            self.arm_motor.run_angle(100,-wiggle)
+            self.arm_motor.run_angle(100, wiggle)
+        else:
+            pass    
+    def step_6_node_2_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(50,rightup)
+            self.arm_motor.run_angle(50,-2*rightup)
+            self.arm_motor.run_angle(50,2*rightup)
+            self.arm_motor.run_angle(50,-2*rightup)
+            self.arm_motor.run_angle(50,rightup)
+        else:
+            pass    
+    def step_6_node_3_action(self):
+        if self.behavior_matches: #eating
+            self.arm_motor.run_angle(250,rightup)
+            self.arm_motor.run_angle(250,-2*rightup)
+            self.arm_motor.run_angle(250,2*rightup)
+            self.arm_motor.run_angle(250,-2*rightup)
+            self.arm_motor.run_angle(250,rightup)  
+        else:
+            pass    
+    def step_7_node_0_action(self):
+        if self.behavior_matches: #tantrum
+            self.bothwheels.drive(-10)
+            self.arm_motor.run_angle(200,wiggle)
+            self.arm_motor.run_angle(200,-2*wiggle)
+            self.arm_motor.run_angle(200,2*wiggle)
+            self.arm_motor.run_angle(200,-2*wiggle)
+            self.arm_motor.run_angle(200,wiggle)
+            self.ev3.speaker.play_file(SORRY.wav)
+        else:
+            pass    
+    def step_7_node_1_action(self):
+        if self.behavior_matches:
+            
+        else:
+            pass    
+    def step_7_node_2_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200,rightup)
+            self.ev3.speaker.play_file(FANTASTIC.wav)
+            
+        else:
+            pass    
+    def step_7_node_3_action(self):
+        if self.behavior_matches:
+            self.arm_motor.run_angle(200,rightup)
+            self.ev3.speaker.play_file(FANTASTIC.wav)
+        else:
+            pass    
+   
