@@ -19,46 +19,122 @@ class Story:
         elif self.step == 1:        # at (step=1, node=0)
             if sensor_input != -1:  #   recieved input
                 self.step = 2       #     move to next step = 2
-            if sensor_input == 0:   #   left button press
+            if sensor_input == 0:   #   touch sensor press
                 self.node = 0       #     go to (step=2, node=0)
-            elif sensor_input == 1: #   right button press
+            elif sensor_input == 1: #   center button press
                 self.node = 1       #     go to (step=2, node=1)
         elif self.step == 2:
             if sensor_input != -1:      # recieved input
                 self.step = 3           #   move to next step =3
             if self.node == 0:          # at (step=2, node=0)
-                if sensor_input == 0:   #   input == left button press
+                if sensor_input == 0:   #   input == touch sensor press
                     self.node = 0       #     go to (step=3, node=0)
-                if sensor_input == 1:   #   input == right button press
+                elif sensor_input == 1:   #   input == center button press
                     self.node = 1       #     go to (step=3, node=1)
             elif self.node == 1:        # at (step=2, node=1)
-                if sensor_input == 0:   #   input == left button press
+                if sensor_input == 0:   #   input == touch sensor press
+                    self.node = 1       #     go to (step=3, node=1)
+                elif sensor_input == 1:   #   input == center button press
                     self.node = 2       #     go to (step=3, node=2)
-                if sensor_input == 1:   #   input == right button press
-                    self.node = 3       #     go to (step=3, node=3)
         elif self.step == 3:
             if sensor_input != -1:      # recieved input
                 self.step = 4           #   move to next step = 4
-            if self.node == 0:          # at (step=3, node=0)
-                if sensor_input == 0:   #   input == left button press
+            elif self.node == 0:          # at (step=3, node=0)
+                if sensor_input == 0:   #   input == touch sensor press
                     self.node = 0       #     go to (step=4, node=0)
-                if sensor_input == 1:   #   input == right button press
+                elif sensor_input == 1:   #   input == center button press
                     self.node = 1       #     go to (step=4, node=1)
-            if self.node == 1:          # at (step=3, node=1)
-                if sensor_input == 0:   #   input == left button press
+            elif self.node == 1:          # at (step=3, node=1)
+                if sensor_input == 0:   #   input == touch sensor press
                     self.node = 0       #     go to (step=4, node=0)
-                if sensor_input == 1:   #   input == right button press
+                elif sensor_input == 1:   #   input == center button press
                     self.node = 1       #     go to (step=4, node=1)
-            if self.node == 2:          # at (step=3, node=2)
-                if sensor_input == 0:   #   input == left button press
-                    self.node = 1       #     go to (step=4, node=1)
-                if sensor_input == 1:   #   input == right button press
-                    self.node = 0       #     go to (step=4, node=0)
-            if self.node == 3:          # at (step=3, node=3)
-                if sensor_input == 0:   #   input == left button press
-                    self.node = 1       #     go to (step=4, node=1)
-                if sensor_input == 1:   #   input == right button press
-                    self.node = 0       #     go to (step=4, node=0)
+            elif self.node == 2:          # at (step=3, node=2)
+                if sensor_input == 0:   #   input == touch sensor press
+                    self.node = 2       #     go to (step=4, node=2)
+                elif sensor_input == 1:   #   input == center button press
+                    self.node = 3       #     go to (step=4, node=3)
+        elif self.step == 4: 
+            if sensor_input != -1:
+                self.step = 5           # move to next step = 5
+            if self.node == 0:          # step 4, node 0
+                if sensor_input == 0:   # input = touch sensor
+                    self.node = 1       # go to step 5, node 1
+                elif sensor_input == 1:   # input = center button
+                    self.node = 0       # go to step 5 node 0
+
+            elif self.node == 1:          # step 4, node 1
+                if sensor_input == 0:   # input = touch sensor
+                    self.node = 0       # go to step 5, node 0
+                elif sensor_input == 1:   # input = center button
+                    self.node = 1       # go to step 5 node 1
+
+            elif self.node == 2:          # at step 4 node 2
+                if sensor_input == 0:   # input = touch sensor
+                    self.node = 2       # go to step 5 node 2
+                elif sensor_input == 1:   # input = center button
+                    self.mode = 3       # go to step 5 node 3
+
+            elif self.node == 3:          # at step 4 node 3
+                if sensor_input == 0:   # input = touch sensor
+                    self.node = 2:      # go to step 5 node 2
+                elif sensor_input == 1:   # input = center button
+                    self.node = 3: 
+       elif self.step == 5:
+            if sensor_input != -1:
+                self.step = 6           # move to next step = 6          
+            if self.node == 0:           # at step 5 node 0
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 0       # go to step 6 node 0
+                elif sensor_input == 1:   # input = center button
+                    self.node = 1       # go to step 6 node 1
+            elif self.node == 1:          # at step 5 node 1
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 2       # go to step 6 node 2
+                elif sensor_input == 1:   # input = center button
+                    self.node = 3       # go to step 6 node 3
+
+            elif self.node == 2:          # at step 5 node 2
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 2       # go to step 6 node 2
+                elif sensor_input == 1:   # input = center button
+                    self.node = 3       # go to step 6 node 3
+
+            elif self.node == 3:          # at step 5 node 3
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 3       # go to step 6 node 3
+                elif sensor_input == 1:   # input = center button
+                    self.node = 2       # go to step 6 node 2
+
+        elif self.step == 6:
+            if sensor_input != -1:
+                self.step = 7           # move to next step = 6          
+            if self.node == 0:           # at step 6 node 0
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 0       # go to step 7 node 0
+                elif sensor_input == 1:   # input = center button
+                    self.node = 1       # go to step 7 node 1
+            elif self.node == 1:          # at step 6 node 1
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 0       # go to step 7 node 0
+                elif sensor_input == 1:   # input = center button
+                    self.node = 1       # go to step 7 node 1
+            elif self.node == 2:          # at step 6 node 2
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 1       # go to step 7 node 1
+                elif sensor_input == 1:   # input = center button
+                    self.node = 2       # go to step 7 node 2
+
+            elif self.node == 3:          # at step 5 node 3
+                if sensor_input == 0:    # input = touch sensor
+                    self.node = 2       # go to step 7 node 2
+                elif sensor_input == 1:   # input = center button
+                    self.node = 3       # go to step 7 node 3
+
+        elif self.step == 7:
+            self.ev3.speaker.say("The game is over, thank you for playing with me!")
+
+
 
     def get_current_step(self):
         return self.step
