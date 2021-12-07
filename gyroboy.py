@@ -18,7 +18,7 @@ class GyroBoy(Robot):
         
         #SENSORS
         self.obstacle_sensor = UltrasonicSensor(Port.S4)
-        self.GoButton = TouchSensor(Port.S3)
+        self.touch_sensor = TouchSensor(Port.S3)
 
     def slowturn(self, percentage, angle):
         # get current turn and move settings

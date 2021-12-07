@@ -80,8 +80,10 @@ class Experiment:
         while toc-tic < max_time:
             toc = time.perf_counter()
             if self.robot.touch_sensor.pressed():
+                print("touch sensor pressed")
                 return 0
             if Button.CENTER in self.robot.ev3.buttons.pressed():
+                print("center button pressed")
                 return 1
             # if Button.LEFT in self.robot.ev3.buttons.pressed():
             #     return 0
@@ -91,13 +93,13 @@ class Experiment:
         return -1
 
 if __name__ == '__main__':
-   experiment = Experiment(form=0, behavior=True)
+   experiment = Experiment(form=1, behavior=True)
    finished = experiment.run()
 
 
 # test code to run through all the actions
-if __name__ == '__main__':
-    gyroboy = GyroBoy(True)
+#if __name__ == '__main__':
+  #  gyroboy = GyroBoy(True)
     # gyroboy.step_0_node_0_action()
     # gyroboy.step_0_node_1_action()
     # gyroboy.step_1_node_0_action()
