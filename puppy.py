@@ -129,77 +129,117 @@ class Puppy(Robot):
    
     def step_4_node_2_action(self):
         if self.behavior_matches:
-            #TODO 
+            walk_in_place(self, 100) 
         else:
             pass    
+    
     def step_4_node_3_action(self):
         if self.behavior_matches:
-            #TODO
+            walk_in_place(self, 100)
+            head_motor.run(-10)
+            wait(5)
+            head_motor.stop()
         else:
             pass    
+    
     def step_4_node_4_action(self):
         if self.behavior_matches:
-            #TODO
+            ev3.screen.load_image(NEUTRAL_EYES)
+            head_motor.run(-10)
+            wait(5)
+            head_motor.stop()
         else:
             pass   
+    
     def step_5_node_0_action(self):
         if self.behavior_matches:
-            #TODO
+            ev3.screen.load_image(TIRED_LEFT_EYES)
+            self.ev3.speaker.say("this way")
+            ev3.screen.load_image(TIRED_RIGHT_EYES)
         else:
             pass    
+    
     def step_5_node_1_action(self):
         if self.behavior_matches:
-            #TODO
+            sit(left_leg_motor, right_leg_motor)
+            self.ev3.speaker.say("I love to arm wrestle")
         else:
             pass   
+    
     def step_5_node_2_action(self):
         if self.behavior_matches:
-            #TODO 
+            ev3.screen.load_image(HEART_EYES)
+            head_motor.run(10)
+            wait(10)
+            head_motor.stop()
+            self.ev3.speaker.say("thanks")
         else:
             pass    
+    
     def step_5_node_3_action(self):
         if self.behavior_matches:
-            #TODO
+            ev3.screen.load_image(TIRED_LEFT_EYES)
+            ev3.screen.load_image(TIRED_RIGHT_EYES)
+            self.ev3.light.on(Color.GREEN)
         else:
             pass    
+    
     def step_6_node_0_action(self):
         if self.behavior_matches:
-            #TODO
+            walk_in_place(self, 100)
+            ev3.screen.load_image(SQUINTY_EYES)
         else:
             pass    
+    
     def step_6_node_1_action(self):
         if self.behavior_matches:
-            #TODO
+            hop(left_leg_motor, right_leg_motor)
+            ev3.speaker.play_file(SoundFile.CRUNCHING)
         else:
             pass    
+    
     def step_6_node_2_action(self):
         if self.behavior_matches:
-            #TODO
+            head_motor.run(10)
+            wait(5)
+            head_motor.run(-10)
+            wait(5)
+            head_motor.stop()
         else:
             pass    
+   
     def step_6_node_3_action(self):
         if self.behavior_matches: 
-            #TODO
+            sit(left_leg_motor, right_leg_motor)
+            ev3.speaker.play_file(SoundFile.DOG_WHINE)
         else:
             pass    
+    
     def step_7_node_0_action(self):
         if self.behavior_matches:
-            #TODO
+            self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
+            hop((left_leg_motor, right_leg_motor)
         else:
             pass    
     def step_7_node_1_action(self):
         if self.behavior_matches:
-            #TODO  
+            self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
+            hop((left_leg_motor, right_leg_motor)
         else:
             pass    
     def step_7_node_2_action(self):
         if self.behavior_matches:
-            #TODO
+            self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
+            hop((left_leg_motor, right_leg_motor)
             
         else:
             pass    
     def step_7_node_3_action(self):
         if self.behavior_matches:
-            #TODO
+            ev3.speaker.play_file(SoundFile.DOG_WHINE)
+            ev3.screen.load_image(HURT_EYES)
+            head_motor.run(-10)
+            wait(5)
+            head_motor.stop()
         else:
             pass 
