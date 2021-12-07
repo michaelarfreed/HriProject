@@ -133,11 +133,11 @@ class Puppy(Robot):
             hop(left_leg_motor, right_leg_motor)
         else:
             left_leg_motor.run(1000) 
-           wait(5)
-           left_leg_motor.stop()
-           right_leg_motor.run(1000) 
-           wait(5)
-           right_leg_motor.stop()    
+            wait(5)
+            left_leg_motor.stop()
+            right_leg_motor.run(1000) 
+            wait(5)
+            right_leg_motor.stop()    
    
     def step_4_node_2_action(self):
         if self.behavior_matches:
