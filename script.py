@@ -13,12 +13,11 @@ class Story:
         if self.step == 0:         # at (step=0, node=0)
             if self.node == 0: 
                 if sensor_input == -1: #   no button press
-                    self.node = 0      #     go to (step=0, node=) / repeat intro
+                    self.node = 0      #     go to (step=0, node=0) / repeat intro
                 else:                  #   any button press
-                    self.node = 1      #     go to (step=1, node=1)
-            elif self.node == 1:
-                self.step = 1        # move to next step = 1
-
+                    self.step = 1      #     go to (step=1, node=0) 
+                    print("Going to 1,0")
+ 
         elif self.step == 1:        # at (step=1, node=0)
             if sensor_input != -1:  #   recieved input
                 self.step = 2       #     move to next step = 2
@@ -26,7 +25,7 @@ class Story:
                 self.node = 0       #     go to (step=2, node=0)
             elif sensor_input == 1: #   center button press
                 self.node = 1       #     go to (step=2, node=1)
-                
+
         elif self.step == 2:
             if sensor_input != -1:      # recieved input
                 self.step = 3           #   move to next step =3

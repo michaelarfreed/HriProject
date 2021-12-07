@@ -45,7 +45,7 @@ class Experiment:
         while not self.story.is_current_step_end():
             # get the text for current step
             text = self.story.get_current_node_text(self.form_factor)
-            self.robot.ev3.speaker.say(text)
+            self.robot.ev3.speaker.say(str(text))
 
             # get the input from the user
             sensor_input = self.wait_for_sensor_input()
@@ -94,6 +94,9 @@ class Experiment:
 
 if __name__ == '__main__':
    experiment = Experiment(form=1, behavior=True)
+   
+   #gyroboy = GyroBoy(True)
+   #gyroboy.ev3.screen.load_image(ImageFile.NEUTRAL)
    finished = experiment.run()
 
 
