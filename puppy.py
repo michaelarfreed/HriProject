@@ -255,7 +255,7 @@ class Puppy(Robot):
     def step_7_node_0_action(self):
         if self.behavior_matches:
             self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
-            hop((left_leg_motor, right_leg_motor)
+            hop((left_leg_motor, right_leg_motor))
         else:
             self.ev3.speaker.say("hooray! we did it")   
             left_leg_motor.run(10) 
@@ -265,7 +265,7 @@ class Puppy(Robot):
     def step_7_node_1_action(self):
         if self.behavior_matches:
             self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
-            hop((left_leg_motor, right_leg_motor)
+            hop((left_leg_motor, right_leg_motor))
         else:
             self.ev3.speaker.say("hooray! we did it")   
             left_leg_motor.run(10) 
@@ -275,7 +275,7 @@ class Puppy(Robot):
     def step_7_node_2_action(self):
         if self.behavior_matches:
             self.ev3.speaker.play_file(SoundFile.DOG_BARK_2)
-            hop((left_leg_motor, right_leg_motor)
+            hop((left_leg_motor, right_leg_motor))
             
         else:
             self.ev3.speaker.say("hooray! we did it")   
