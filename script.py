@@ -1,5 +1,3 @@
-
-
 class Story:
     
     def __init__(self):
@@ -12,11 +10,10 @@ class Story:
     def set_next_node(self, sensor_input):
         if self.step == 0:         # at (step=0, node=0)
             if self.node == 0: 
-                if sensor_input == -1: #   no button press
-                    self.node = 0      #     go to (step=0, node=0) / repeat intro
-                else:                  #   any button press
+                if sensor_input == 1:  #   center button press
                     self.step = 1      #     go to (step=1, node=0) 
                     print("Going to 1,0")
+                                       # otherwise, stay at (0,0) and re-read instructions
  
         elif self.step == 1:        # at (step=1, node=0)
             if sensor_input != -1:  #   recieved input
@@ -135,9 +132,9 @@ class Story:
                     self.node = 3       # go to step 7 node 3
 
         elif self.step == 7:
-            self.ev3.speaker.say("The game is over, thank you for playing with me!")
+            self.step = 8
 
-
+        print('at (step=',self.step,', node=',self.node,')')
 
     def get_current_step(self):
         return self.step
@@ -192,13 +189,13 @@ class Story:
                 return self.step_6_node_3(robot_form_factor)
         if self.step == 7:
             if self.node == 0:
-                return self.step_7_node_0(robot_form_factor)
+                return self.step_7_node_0()
             if self.node == 1:
-                return self.step_7_node_1(robot_form_factor)
+                return self.step_7_node_1()
             if self.node == 2:
-                return self.step_7_node_2(robot_form_factor)
+                return self.step_7_node_2()
             if self.node == 3:
-                return self.step_7_node_3(robot_form_factor)
+                return self.step_7_node_3()
 
     def get_current_node_action_function_name(self):
         return "step_" + str(self.step) + "_node_" + str(self.node) + "_action"
@@ -211,12 +208,12 @@ class Story:
 
     def get_form_specific_action(self, form):
         if form == 0: # puppy
-            return "pat my back. "
+            return "pat my back "
         if form == 1: # gyroboy
-            return "hold my hand. "
+            return "hold my hand "
         if form == 2: # car
-            return "honk the horn. "    
-        return "press the touch sensor. "
+            return "honk the horn "    
+        return "press the touch sensor "
 
     # Step 0
     def step_0_node_0(self, form):
@@ -242,8 +239,8 @@ class Story:
             "Should we call a helicopter from the roof, "
             "or should we sneak out through the vents? " +
             self.get_form_specific_action(form) +
-            " to take the helicopter. "
-            "Press the center button to take the vents."
+            " to take the vents. "
+            "Press the center button to take the helicopter."
         )
 
         return instructions
@@ -266,8 +263,8 @@ class Story:
             "But, I think someone spotted us, because we are being followed. "
             "What should we do? " +
             self.get_form_specific_action(form) +
-            " to take the helicopter. "
-            "Press the center button to take the vents."
+            " to parachute out of the plane. "
+            "Press the center button to emergency land on top of the library."
         )
 
         return instructions
@@ -275,9 +272,9 @@ class Story:
     def step_3_node_0(self, form):
         instructions = (
             "Oh no, I think we’re lost! Do you want to turn around? " +
-            self.get_form_specific_action() +
-            " to turn around. "
-            "Press the center button to keep going."
+            self.get_form_specific_action(form) +
+            " to keep going. "
+            "Press the center button to turn around."
         )
 
         return instructions
@@ -287,7 +284,7 @@ class Story:
             "You landed on top of Dunkin Donuts. "
             "Are you hungry? " +
             self.get_form_specific_action(form) +
-            " stop for a snack. "
+            " to stop for a snack. "
             "Press the center button to continue without stopping."
         )
 
@@ -317,7 +314,8 @@ class Story:
 
     def step_4_node_0(self, form):
         instructions = (
-            "Yum! I love donuts. But I think I spot someone following us outside! "
+            "We wound up in a Dunkin Donuts and we stopped for a donut. Yum! "
+            "But I think I spot someone following us outside! "
             "What should we do as a distraction? " +
             self.get_form_specific_action(form) +
             " to sneak out the back door. "
@@ -331,7 +329,7 @@ class Story:
             "Oh no, I think someone is following us, and they’ve spotted us. What should we do? " +
             self.get_form_specific_action(form) +
             " to challenge them to a race. "
-            "Press the center button to hide under the table."
+            "Press the center button to hide in the alley outside."
         )
 
         return instructions
@@ -398,8 +396,8 @@ class Story:
             "We best them with our strength, so they must tell us where the special agent is. "
             "They give us the answer. But do we trust them? "  +
             self.get_form_specific_action(form) +
-            " if you trust them. "
-            "Press the center button if you do not trust them."
+            " if you do not trust them. "
+            "Press the center button if you do trust them."
         )
 
         return instructions
@@ -411,7 +409,7 @@ class Story:
             "and they tell us that the special agent is hiding on the bus next to the ferry. "
             "Should we trust them? "  +
             self.get_form_specific_action(form) +
-            " if you trust them. "
+            " if you do trust them. "
             "Press the center button if you do not trust them."
         )
 
@@ -424,8 +422,8 @@ class Story:
             "We look over and see that there are two possible sources of transport in front of us. "
             "Which one should we choose? " +
             self.get_form_specific_action(form) +
-            " to get in a row boat and enter the head of the charles. "
-            "Press the center button to take the ferry that is leaving the dock."
+            " to take the ferry that is leavin the dock. "
+            "Press the center button to get in a row boat and enter the head of the charles. "
         )
 
         return instructions
@@ -443,28 +441,50 @@ class Story:
 
     def step_7_node_0(self):
         instructions = (
-            "We decided not to trust them, but they were telling the truth. "
-            "We are sent on a wild goose chase across the country, and we are never able to deliver the letter."
+            "They lied to you. They sent on a wild goose chase across the country, "
+            "and we are never able to deliver the letter."
         )
 
+        self.step = 8
         return instructions
 
     def step_7_node_1(self):
-        instructions = (
-            "With the other people racing around us, our adrenaline kicks in, and we paddle extremely fast. "
-            "We reach the other side of the river, and there is someone waiting there. "
-            "You speak to them, and they tell you they are not the recipient of the letter! "
-            "Unfortunately you are not in the right place, but this mysterious person can take over your mission and deliver the letter."
+        intructions = (
+            "With its powerful engines, the ferry is surely the way to go. "
+            "We hop on, and it takes us to another port where we run onto a bus. "
+            "The bus travels for half an hour, and when it arrives at the final stop, secret agent 007 is there, waiting to receive the letter. "
+            "Good job!"
         )
+        self.step = 8
+
 
         return instructions
 
     def step_7_node_2(self):
-        intructions = (
-            "With its powerful engines, the ferry is surely the way to go. "
-            "We hop on, and it takes us to another port, at which point we run onto a bus. "
-            "The bus travels for half an hour, and when it arrives at the final stop, secret agent 007 is there, waiting to receive the letter. "
-            "Good job!"
+        instructions = (
+            "You find someone who is waiting there. "
+            "You speak to them, and they tell you they are not the recipient of the letter! "
+            "Unfortunately you are not in the right place, but this mysterious person can take over your mission and deliver the letter."
         )
+        self.step = 8
         
         return instructions 
+
+    def step_7_node_3(self):
+        instructions = (
+            "You search everywhere, but you cannot find anyone. "
+            "You realize that you are in the wrong place, and you will have to re-start your search for the secret agent tomorrow."
+        )
+        self.step = 8
+        
+        return instructions 
+
+
+# if __name__ == '__main__':
+#     story = Story()
+#     while not story.is_current_step_end():
+#         print(story.get_current_node_text(0))
+#         sensor_input = int(input("0 = touch sensor; 1 = center button: "))
+#         story.set_next_node(sensor_input)
+#         print(sensor_input)
+#         print(story.get_current_step())
