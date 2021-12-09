@@ -23,6 +23,10 @@ class Experiment:
         self.robot = self.get_robot()
         self.prev_touched = 0
 
+        self.input_list = []
+        self.input_time_stamps_list = []
+        self.start_time=time.time()
+
 
     def get_robot(self):
         if self.form_factor == 0:
@@ -47,8 +51,12 @@ class Experiment:
             text = self.story.get_current_node_text(self.form_factor)
             self.robot.ev3.speaker.say(str(text))
 
-            # get the input from the user
-            sensor_input = self.wait_for_sensor_input()
+            # user input
+            sensor_start_time = time.time()             # get time when prompt user for input
+            sensor_input = self.wait_for_sensor_input() # wait for actual input
+            self.input_list.append(sensor_input)        # get time when user gives input
+
+            self.input_time_stamps_list.append((sensor_start_time,time.time()))  # record the amount of time user spends on a step
 
             if sensor_input != -1:
                 # do the action            
@@ -92,13 +100,49 @@ class Experiment:
         # return 0
         return -1
 
-if __name__ == '__main__':
-   experiment = Experiment(form=1, behavior=True)
-   
-   #gyroboy = GyroBoy(True)
-   #gyroboy.ev3.screen.load_image(ImageFile.NEUTRAL)
-   finished = experiment.run()
+    def write_sensor_input_to_file(self):
+        file_name = str(time.time()) + ".log"
+        try:
+            with open(file_name,'w') as file:
+                # write start_time
+                file.write('start_time:'+str(self.start_time)+'\n')
 
+                # write end_time
+                file.write('end_time:'+str(time.time())+'\n')
+
+                # write input_timestamp_list
+                file.write('input_times:')
+                comma_prefix = False
+                for item in self.input_time_stamps_list:
+                    if comma_prefix:
+                        file.write(',')
+                    file.write('('+str(item[0])+','+str(item[1])+')')
+                    comma_prefix=True
+                file.write('\n')
+                
+                # write input_list
+                file.write('input_list:')
+                comma_prefix = False
+                for item in self.input_list:
+                    if comma_prefix:
+                        file.write(',')
+                    file.write(str(item))
+                    comma_prefix=True
+                file.write('\n')
+
+        except Exception as e:
+            print('file write failed')
+            print(e)
+
+
+if __name__ == '__main__':
+    experiment = Experiment(form=2, behavior=False)
+    # gyroboy = GyroBoy(True)
+    # gyroboy.ev3.screen.load_image(ImageFile.NEUTRAL)
+    finished = experiment.run()
+    experiment.write_sensor_input_to_file()
+    # story = Story()
+    # print(story.get_current_step())
 
 # test code to run through all the actions
 #if __name__ == '__main__':

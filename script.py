@@ -133,6 +133,7 @@ class Story:
 
         elif self.step == 7:
             self.step = 8
+            self.node = 0
 
         print('at (step=',self.step,', node=',self.node,')')
 
@@ -445,7 +446,6 @@ class Story:
             "and we are never able to deliver the letter."
         )
 
-        self.step = 8
         return instructions
 
     def step_7_node_1(self):
@@ -455,7 +455,6 @@ class Story:
             "The bus travels for half an hour, and when it arrives at the final stop, secret agent 007 is there, waiting to receive the letter. "
             "Good job!"
         )
-        self.step = 8
 
 
         return instructions
@@ -466,7 +465,6 @@ class Story:
             "You speak to them, and they tell you they are not the recipient of the letter! "
             "Unfortunately you are not in the right place, but this mysterious person can take over your mission and deliver the letter."
         )
-        self.step = 8
         
         return instructions 
 
@@ -475,7 +473,6 @@ class Story:
             "You search everywhere, but you cannot find anyone. "
             "You realize that you are in the wrong place, and you will have to re-start your search for the secret agent tomorrow."
         )
-        self.step = 8
         
         return instructions 
 
