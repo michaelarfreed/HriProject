@@ -81,9 +81,9 @@ class Car(Robot):
     def step_2_node_0_action(self): #vents
         if self.behavior_matches:
             self.turn_left()
-            self.ev3.speaker.play_sound(self.SOUND_MOTOR_IDLE)
+            self.ev3.speaker.play_file(self.SOUND_MOTOR_IDLE)
             self.turn_right()
-            self.ev3.speaker.play_sound(self.SOUND_MOTOR_IDLE)
+            self.ev3.speaker.play_file(self.SOUND_MOTOR_IDLE)
             self.turn_to_center()
         else: 
             self.turn_left()
@@ -95,7 +95,7 @@ class Car(Robot):
     def step_2_node_1_action(self): #helecopter
         if self.behavior_matches:
             self.drive_forward()
-            self.ev3.speaker.play_sound(self.SOUND_MOTOR_IDLE)
+            self.ev3.speaker.play_file(self.SOUND_MOTOR_IDLE)
             # self.ev3.speaker.say("Uh oh")
             self.drive_backward()
         else:
@@ -109,7 +109,7 @@ class Car(Robot):
             self.ev3.speaker.play_file(self.SOUND_BACKING_ALERT)
             self.drive_backward()
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_WHINE)
+            self.ev3.speaker.play_file(self.SOUND_DOG_WHINE)
             self.drive_backward()
         print("Step 3 Node 0 complete")
     def step_3_node_1_action(self):
@@ -120,7 +120,7 @@ class Car(Robot):
             self.drive_forward()
             self.turn_to_center()
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_WHINE)
+            self.ev3.speaker.play_file(self.SOUND_DOG_WHINE)
             self.turn_left()
             self.drive_forward()
             self.turn_right()
@@ -135,7 +135,7 @@ class Car(Robot):
             self.drive_backward()  
             self.turn_to_center()       
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_WHINE)
+            self.ev3.speaker.play_file(self.SOUND_DOG_WHINE)
             self.turn_left()
             self.drive_forward()
             self.turn_right()
@@ -150,7 +150,7 @@ class Car(Robot):
         if self.behavior_matches:
             self.drive_in_place()
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_SNIFF)
+            self.ev3.speaker.play_file(self.SOUND_DOG_SNIFF)
             self.drive_in_place()
 
         print("Step 4 Node 0 complete")
@@ -160,7 +160,7 @@ class Car(Robot):
             self.drive_backward()
             self.drive_forward() 
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_SNIFF)
+            self.ev3.speaker.play_file(self.SOUND_DOG_SNIFF)
             self.turn_to_center()
             self.drive_in_place()
 
@@ -172,7 +172,7 @@ class Car(Robot):
             self.drive_backward()
             self.turn_to_center()
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_SNIFF)
+            self.ev3.speaker.play_file(self.SOUND_DOG_SNIFF)
             self.turn_to_center()
             self.drive_in_place()
 
@@ -184,7 +184,7 @@ class Car(Robot):
             self.ev3.speaker.play_file(self.SOUND_BEEP_BEEP)
             self.drive_backward()
         else:
-            self.ev3.speaker.play_sound(self.SOUND_DOG_SNIFF)
+            self.ev3.speaker.play_file(self.SOUND_DOG_SNIFF)
             self.turn_to_center()
             self.drive_in_place()
         print("Step 4 Node 3 complete")  
