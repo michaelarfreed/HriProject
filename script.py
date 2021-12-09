@@ -204,7 +204,7 @@ class Story:
         return "step_" + str(self.step) + "_node_" + str(self.node) + "_action"
 
     def is_current_step_end(self):
-        if self.step == 4:
+        if self.step == 8:
             return True
         else:
             return False
@@ -297,7 +297,7 @@ class Story:
         instructions = (
             "They’re still on our tail! Quick, we need a distraction. "
             "Should we throw a banana peel or try on a silly disguise?" +
-            self.get_form_specific_action() +
+            self.get_form_specific_action(form) +
             " to throw the banana peel. "
             "Press the center button to put on a fake mustache."
         )

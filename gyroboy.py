@@ -16,6 +16,10 @@ class GyroBoy(Robot):
         self.leftwheel_motor = Motor(Port.D)
         self.bothwheels = DriveBase(self.leftwheel_motor, self.rightwheel_motor, 5.5,10.25) # left motor right motor, wheel diameter, distance between wheels
         
+        #SENSORS
+       # self.obstacle_sensor = UltrasonicSensor(Port.S4)
+        self.touch_sensor = TouchSensor(Port.S3)
+
     def turn_left(self):
         self.bothwheels.turn(45)
         self.bothwheels.turn(-45)
@@ -24,9 +28,7 @@ class GyroBoy(Robot):
         self.bothwheels.turn(-45)
         self.bothwheels.turn(45)
 
-        #SENSORS
-        self.obstacle_sensor = UltrasonicSensor(Port.S4)
-        self.touch_sensor = TouchSensor(Port.S3)
+        
 
     def slowturn(self, percentage, angle):
         # get current turn and move settings
